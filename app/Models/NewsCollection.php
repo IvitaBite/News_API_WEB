@@ -6,7 +6,7 @@ namespace App\Models;
 
 class NewsCollection
 {
-    private array $newsCollection;
+    private array $newsCollection = [];
 
     public function __construct(array $newsCollection = [])
     {
@@ -15,13 +15,13 @@ class NewsCollection
         }
     }
 
-    public function getNews(): array
-    {
-        return $this->newsCollection;
-    }
-
     public function add(News $news)
     {
         $this->newsCollection [] = $news;
+    }
+
+    public function getNews(): array
+    {
+        return $this->newsCollection;
     }
 }
