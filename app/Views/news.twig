@@ -1,0 +1,31 @@
+{% include 'Partials/head.twig' %}
+{% include 'Partials/navbar.twig' %}
+{% include 'Partials/header.twig' %}
+
+<section>
+    <div class="container">
+        <ul class="article-container">
+            {% if articles %}
+                {% for article in articles %}
+                    <li class="article">
+                        <div class="article-image-container">
+                            <img src="{{ article.getUrlToImage() }}" alt="{{ article.getTitle() }}">
+                        </div>
+                        <h3>
+                            <a href="{{ article.getUrl() }}" target="_blank">{{ article.getTitle() }}</a>
+                        </h3>
+                        <p>{{ article.getDescription() }}</p>
+                        <div class="article-info">
+                            <p>{{ article.getAuthor() }}</p>
+                            <p>{{ article.getPublishedAt()|date('Y-m-d H:i:s') }}</p>
+                        </div>
+                    </li>
+                {% endfor %}
+            {% else %}
+                <p class="found">No articles found.</p>
+            {% endif %}
+        </ul>
+    </div>
+</section>
+
+{% include 'Partials/footer.twig' %}

@@ -1,0 +1,46 @@
+<?php
+declare(strict_types=1);
+
+use App\Response;
+use App\Router\Router;
+use Twig\Loader\FilesystemLoader;
+use Twig\Environment;
+use Dotenv\Dotenv;
+use Twig\Extension\DebugExtension;
+use App\Api\ApiNews;
+
+require_once __DIR__ . '/../vendor/autoload.php';
+
+$dotenv = Dotenv::createImmutable(__DIR__ . '/../');
+$dotenv->load();
+
+$loader = new FilesystemLoader(__DIR__ . '/../app/Views');
+$twig = new Environment($loader);
+
+$twig->addExtension(new DebugExtension());
+
+$routeInfo = Router::dispatch();
+
+switch ($routeInfo[0]) {
+    case FastRoute\Dispatcher::NOT_FOUND:
+        // ... 404 Not Found //todo ERROR twig
+        break;
+    case FastRoute\Dispatcher::METHOD_NOT_ALLOWED:
+        $allowedMethods = $routeInfo[1];
+        // ... 405 Method Not Allowed //todo ERROR twig
+        break;
+    case FastRoute\Dispatcher::FOUND:
+
+        $vars = $routeInfo[2];
+
+        [$controller, $method] = $routeInfo[1];
+
+        $apiNews = new ApiNews();
+        $response = (new $controller($apiNews))->{$method}($vars);
+
+        if ($response instanceof Response) {
+            /** @var Response $response */
+            echo $twig->render($response->getViewName() . '.twig', $response->getData());
+        }
+        break; //todo ERROR twig
+}
