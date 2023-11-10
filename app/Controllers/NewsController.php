@@ -35,8 +35,16 @@ class NewsController
         $fromDate = $_GET['fromDate'] ?? '';
         $toDate = $_GET['toDate'] ?? '';
 
-        $fromDate = Carbon::parse($fromDate)->toDateString();
-        $toDate = Carbon::parse($toDate)->toDateString();
+        $fromDate = Carbon::parse($fromDate);
+        $toDate = Carbon::parse($toDate);
+
+        $maxFromDate = Carbon::now()->subDays(30);
+        if ($fromDate->lessThan($maxFromDate)) {
+            $fromDate = $maxFromDate;
+        }
+
+        $fromDate = $fromDate->toDateString();
+        $toDate = $toDate->toDateString();
 
         $newsCollection = $this->apiNews->searchNewsByParameters($query, $fromDate, $toDate);
 
