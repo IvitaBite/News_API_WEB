@@ -50,7 +50,7 @@ class News
 
     public function getTitle(): ?string
     {
-       return $this->title ?? '';
+        return $this->title ?? '';
     }
 
     public function getDescription(): ?string
@@ -60,7 +60,7 @@ class News
 
     public function getUrl(): ?string
     {
-       return $this->url ?? '';
+        return $this->url ?? '';
     }
 
     public function getUrlToImage(): ?string

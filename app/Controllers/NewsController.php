@@ -21,6 +21,7 @@ class NewsController
     {
         $country = $_GET['country'] ?? 'lv';
         $category = $_GET['category'] ?? 'science';
+
         $newsCollection = $this->apiNews->searchNews($country, $category);
 
         return new Response('index', [

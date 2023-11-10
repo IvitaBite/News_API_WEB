@@ -24,7 +24,6 @@ class ApiNews
     {
         $apiKey = $_ENV['NEWS_API_KEY'];
         $url = self::API_URL . "?country={$country}&category={$category}&apiKey={$apiKey}";
-
         $response = $this->client->get($url);
         $data = json_decode($response->getBody()->getContents());
 
@@ -53,7 +52,6 @@ class ApiNews
     {
         $apiKey = $_ENV['NEWS_API_KEY'];
         $url = self::API_URL_EVER . "?q={$query}&from={$fromDate}&to={$toDate}&apiKey={$apiKey}";
-
         $response = $this->client->get($url);
         $data = json_decode($response->getBody()->getContents());
 

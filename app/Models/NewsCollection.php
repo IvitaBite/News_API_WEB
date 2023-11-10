@@ -10,7 +10,6 @@ class NewsCollection
 
     public function __construct(array $newsCollection = [])
     {
-        $this->newsCollection = $newsCollection; //todo vai šo man vajag?
         foreach ($newsCollection as $news) {
             $this->add($news);
         }
